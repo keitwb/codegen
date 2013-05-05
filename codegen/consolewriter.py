@@ -5,7 +5,10 @@ class ConsoleWriter(object):
         self._debug = True
 
     def error(self, text):
-        print ' '*self.indent + 'Error: ' + text
+        print ' '*self.indent + 'Error: %s' % (text,)
+
+    def warning(self, text):
+        print ' '*self.indent + 'Warning: %s' % (text,)
 
     def debug(self, text):
         if self._debug:
@@ -16,5 +19,5 @@ class ConsoleWriter(object):
         if add_indent:
             self.indent += 2
 
-    def reset_indent(self):
+    def reset(self):
         self.indent -= 2

@@ -1,0 +1,35 @@
+#!/usr/bin/env jython
+
+import sys
+import traceback
+
+from codegen.config import (
+        CommandLineConfig,
+        FileConfig,
+        DefaultConfig,
+        MergedConfig,
+    )
+
+from codegen.renderer import Builder
+from codegen.exceptions import CodegenError
+
+
+if __name__ == '__main__':
+    cl_cfg = None
+    try:
+        cl_cfg = CommandLineConfig()
+        file_cfg = FileConfig(cl_cfg['config_file'])
+        config = MergedConfig(cl_cfg, file_cfg, DefaultConfig())
+
+        Builder(config).render_templates()
+
+        exit(0)
+    except CodegenError as e:
+        if cl_cfg is not None and cl_cfg['verbose']:
+            msg = traceback.format_exc()
+        else:
+            msg = str(e)
+
+        sys.stderr.write("Error: %s\n" % (msg,))
+        exit(1)
+

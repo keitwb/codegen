@@ -1,0 +1,19 @@
+CodeGen is a Jython code generation utility that facilitates code generation
+into any output language.  It's primary templating language is [StringTemplate
+V4](http://www.stringtemplate.org/), which is why CodeGen is in Jython and not
+regular python.  `StringTemplate` is a very clean templating language that
+enforces rather strict separation of your template's model and the template
+itself (the view).  It also handles whitespace very inteligently, unlike many
+templating libs out there, which is very important for code generation -- you
+want your code to be human readable even if it is automatically created.  
+
+Features
+--------
+* Custom Sections - Sometimes when you are dealing with templates that render to
+  multiple files, you want to tweak the final output code of a particular
+  rendered file by a little bit.  You can generally always do it by adding
+  additional fields to your model, but that can increase the complexity of your
+  templates quite a bit.  An alternative is to specify special sections in the
+  template where custom code can be entered and preserved across renderings.
+  This adds quite a bit of flexibility to your templates, at the expense of a
+  slight bit of ugliness with the custom section delimiters. 
